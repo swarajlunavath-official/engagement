@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Prem Geethika//Engagement//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:prem-geethika-engagement-20261122@swarajlunavath-official.github.io
+DTSTAMP:20261115T120000Z
+DTSTART:20261122T050000Z
+DTEND:20261122T080000Z
+SUMMARY:Engagement of Prem & Geethika
+LOCATION:Podduturi Jewels\, 4th Floor\, above Reliance Trends\, opposite RE
+ C Petrol Bunk
+DESCRIPTION:Engagement ceremony of J. Prem Nayak & L. Geethika.\nDirections
+ : https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9
+URL:https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Engagement of Prem & Geethika
+END:VALARM
+END:VEVENT
+END:VCALENDAR
