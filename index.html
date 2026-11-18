@@ -26,10 +26,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Suravaram&display=swap" rel="stylesheet">
 
 <script>
   document.documentElement.className += " js locked";
+  (function () {
+    var l = null;
+    try { var m = location.search.match(/[?&]lang=(te|en)/); l = m ? m[1] : localStorage.getItem("lang"); } catch (e) {}
+    window.__LANG = l === "te" ? "te" : "en";
+    if (window.__LANG === "te") document.documentElement.className += " te te-pending";
+  })();
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 </script>
 
@@ -46,6 +52,8 @@
   --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --script:"Great Vibes", "Brush Script MT", cursive;
   --caps:"Cinzel", "Cormorant Garamond", Georgia, serif;
+  --te-body:"Noto Serif Telugu", "Cormorant Garamond", Georgia, serif;
+  --te-display:"Suravaram", "Noto Serif Telugu", Georgia, serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -412,6 +420,79 @@ img{max-width:100%;display:block}
 @media (min-width:560px){
   .couple{display:grid;grid-template-columns:1fr 170px 1fr;align-items:center;gap:6px}
 }
+/* ---------- English / Telugu switch ---------- */
+.lang{position:fixed;top:calc(18px + env(safe-area-inset-top));left:50%;z-index:52;display:flex;gap:2px;padding:3px;border-radius:999px;
+  transform:translateX(-50%);transition:transform .35s ease,opacity .35s ease;
+  background:rgba(38,6,12,.88);border:1px solid rgba(241,216,148,.75);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.lang.hide{transform:translate(-50%,-90px);opacity:0;pointer-events:none}
+.lang button{border:0;background:none;color:#F4E2C0;cursor:pointer;border-radius:999px;padding:6px 14px;min-height:36px;line-height:1;
+  font-family:var(--caps);font-size:.74rem;letter-spacing:.1em;transition:background .25s ease,color .25s ease}
+.lang button.te-btn{font-family:var(--te-body);font-size:.95rem;letter-spacing:0;font-weight:600}
+.lang button[aria-pressed="true"]{background:linear-gradient(135deg,#F6E3B4,#C9A25A);color:#4A0D18}
+.hero-c,main,.foot,.cue-text,.dock-i span{transition:opacity .22s ease}
+.lang-fade .hero-c,.lang-fade main,.lang-fade .foot,.lang-fade .cue-text,.lang-fade .gate-top,.lang-fade .gate-bottom,.lang-fade .dock-i span{opacity:0!important}
+.te-pending .gate-top,.te-pending .gate-bottom,.te-pending .hero-c{visibility:hidden}
+
+/* Telugu text: no letter-spacing or capitals, taller lines, Telugu fonts */
+html.te body{font-family:var(--te-body);font-size:17.5px;line-height:1.75}
+.te .kicker,.te .kick,.te .k,.te .db-side,.te .db-year,.te .cd-t small,.te .dock-i,.te .btn,.te .bless-btn,.te .bless-count,
+.te .cue-text,.te .gate-top .t1,.te .tap,.te .cancel,.te .person .full{font-family:var(--te-body);letter-spacing:0;text-transform:none}
+.te .hero .at,.te .find-cap,.te .person .of,.te .bless-msg,.te .foot p,.te .invite-text,.te .sheet p{font-style:normal}
+.te .kicker{font-size:.95rem;font-weight:600;line-height:1.6}
+.te .kick{font-size:.95rem;font-weight:600}
+.te .k{font-size:.82rem;font-weight:600}
+.te .db-side{font-size:.95rem;font-weight:600;min-width:100px;padding:6px 0}
+.te .db-year{font-size:1rem;font-weight:500}
+.te .hero .at{font-size:1.05rem}
+.te .names{font-family:var(--te-display);font-size:clamp(3.1rem,15.5vw,4.6rem);line-height:1.12;margin-top:4px}
+.te .names .n{padding:.26em .3em .3em}
+.te .names .amp{font-family:var(--script);margin:-.42em 0 -.42em}
+.te .sec-title,.te .foot .script,.te .sheet h3,.te .cd-msg,.te .gate-top .t2,.te .amp-s{font-family:var(--te-display);font-weight:400;line-height:1.35}
+.te .sec-title{font-size:2.25rem}
+.te .foot .script{font-size:1.85rem}
+.te .gate-top .t2{font-size:2.4rem}
+.te .gate-top .t1{font-size:1rem;font-weight:600}
+.te .sheet h3{font-size:1.85rem}
+.te .cd-msg{font-size:1.75rem}
+.te .amp-s{font-size:1.5rem}
+.te .cd-t small{font-size:.8rem;font-weight:600}
+.te .parents{font-size:1.15rem}
+.te .invite-text{font-size:1.08rem}
+.te .person .full{font-size:1.08rem;font-weight:700}
+.te .person .of{font-size:.98rem}
+.te .v{font-size:1.1rem}
+.te .sub,.te .find-cap{font-size:.95rem}
+.te .btn{font-size:1.02rem;font-weight:600}
+.te .bless-btn{font-size:1rem}
+.te .bless-msg{font-size:1.08rem}
+.te .bless-count{font-size:.88rem}
+.te .cue-text{font-size:.92rem;font-weight:600}
+.te .tap{font-size:.95rem;font-weight:600}
+.te .dock-i{font-size:.7rem;font-weight:600}
+.te .cancel{font-size:.95rem}
+.te .find .t-venue{font-family:var(--te-body);font-size:10.5px;letter-spacing:0;font-weight:700}
+.te .find .t-floor{font-family:var(--te-body);font-size:13px;font-style:normal;font-weight:700}
+.te .find .t-opp{font-family:var(--te-body);font-size:10px;letter-spacing:0;font-weight:600}
+.te .find .t-bunk{font-family:var(--te-body);font-size:12.5px;font-weight:700}
+@media (max-height:800px){
+  .te .names{font-size:clamp(2.9rem,14.5vw,4.2rem)}
+  .te .kicker{line-height:1.45}
+}
+@media (max-height:720px){
+  .te .hero{padding-bottom:118px}
+  .te .names{font-size:clamp(2.6rem,13vw,3.8rem);line-height:1.08}
+  .te .names .n{padding:.24em .3em .26em}
+  .te .db-side{padding:4px 0}
+  .te .db-year{margin-top:4px}
+  .te .hero .at{margin-top:2px}
+}
+@media (max-height:620px){
+  .te .hero{padding-top:78px;padding-bottom:104px}
+  .te .names{font-size:clamp(2.3rem,11.5vw,3.3rem)}
+  .te .kicker{font-size:.88rem;line-height:1.35}
+  .te .db-day{font-size:2.5rem}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
   .cue-hand svg{animation:none!important;opacity:1}
@@ -448,6 +529,12 @@ img{max-width:100%;display:block}
   <svg class="off" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
 </button>
 
+<!-- ================= LANGUAGE SWITCH ================= -->
+<div class="lang" id="lang" role="group" aria-label="Language / భాష">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" class="te-btn" data-lang="te" aria-pressed="false">తెలుగు</button>
+</div>
+
 <!-- ================= TEMPLE DOORS (tap to open) ================= -->
 <div class="gate" id="gate" role="button" tabindex="0" aria-label="Tap to open the invitation">
   <div class="gate-glow"></div>
@@ -455,12 +542,12 @@ img{max-width:100%;display:block}
   <div class="door r"><div class="arch"></div><div class="panel"></div><span class="knock"></span></div>
   <div class="toran" id="gateToran"></div>
   <div class="gate-top">
-    <div class="t1">You are invited to the</div>
-    <div class="t2">Engagement</div>
+    <div class="t1" data-i18n="g1">You are invited to the</div>
+    <div class="t2" data-i18n="g2">Engagement</div>
   </div>
   <div class="seal" aria-hidden="true">P<small>&amp;</small>G</div>
   <div class="gate-bottom">
-    <span class="tap"><svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5 1a2 2 0 0 1 1.5 2.3l-1 5A3 3 0 0 1 15 21h-3.5a3 3 0 0 1-2.4-1.2L5.5 15a1.6 1.6 0 0 1 2.4-2.1L9 14"/></svg>Tap to open</span>
+    <span class="tap"><svg viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5l4.5 1a2 2 0 0 1 1.5 2.3l-1 5A3 3 0 0 1 15 21h-3.5a3 3 0 0 1-2.4-1.2L5.5 15a1.6 1.6 0 0 1 2.4-2.1L9 14"/></svg><span data-i18n="tap">Tap to open</span></span>
   </div>
 </div>
 
@@ -472,21 +559,21 @@ img{max-width:100%;display:block}
   <div class="toran" id="heroToran" style="z-index:2"></div>
 
   <div class="hero-c">
-    <div class="kicker e" style="--d:.5s">Together with their families</div>
-    <div class="kicker e" style="--d:.7s;margin-top:4px">we celebrate the engagement of</div>
+    <div class="kicker e" data-i18n="h1" style="--d:.5s">Together with their families</div>
+    <div class="kicker e" data-i18n="h2" style="--d:.7s;margin-top:4px">we celebrate the engagement of</div>
     <h1 class="names">
-      <span class="n" style="--d:.9s">Prem</span>
+      <span class="n" data-i18n="n1" style="--d:.9s">Prem</span>
       <span class="amp e" style="--d:2s">&amp;</span>
-      <span class="n" style="--d:2.2s">Geethika</span>
+      <span class="n" data-i18n="n2" style="--d:2.2s">Geethika</span>
     </h1>
     <svg class="orn-h" style="--d:3.3s" aria-hidden="true"><use href="#lotus"/></svg>
     <div class="dateblock">
-      <div class="db-side e" style="--d:3.6s">Sunday</div>
+      <div class="db-side e" data-i18n="sun" style="--d:3.6s">Sunday</div>
       <div class="db-day e" style="--d:3.8s">22</div>
-      <div class="db-side e" style="--d:4s">November</div>
+      <div class="db-side e" data-i18n="nov" style="--d:4s">November</div>
     </div>
-    <div class="db-year e" style="--d:4.2s">2026 &nbsp;·&nbsp; 10:30 AM</div>
-    <div class="at e" style="--d:4.4s">at Podduturi Jewels</div>
+    <div class="db-year e" data-i18n="yr" style="--d:4.2s">2026 &nbsp;·&nbsp; 10:30 AM</div>
+    <div class="at e" data-i18n="at" style="--d:4.4s">at Podduturi Jewels</div>
   </div>
 
 </header>
@@ -503,30 +590,30 @@ img{max-width:100%;display:block}
         <path d="M13 10.2v3.4M15.6 10.7v3.3" fill="none" stroke="#4A0D18" stroke-width=".9" stroke-linecap="round"/>
       </svg>
     </span>
-    <span class="cue-text">Swipe up for details</span>
+    <span class="cue-text" data-i18n="cue">Swipe up for details</span>
   </span>
 </a>
 
 <main>
   <!-- ================= COUNTDOWN ================= -->
   <section class="sec" id="countdown" style="padding-top:56px;padding-bottom:18px">
-    <div class="kick rv up">Counting the moments</div>
-    <h2 class="sec-title rv up" style="--d:.1s">Until we celebrate</h2>
+    <div class="kick rv up" data-i18n="cdk">Counting the moments</div>
+    <h2 class="sec-title rv up" style="--d:.1s" data-i18n="cdt">Until we celebrate</h2>
     <div class="cd rv zoom" id="cd" style="--d:.25s">
-      <div class="cd-t"><div class="cd-n"><span id="cd-d">00</span></div><small>Days</small></div>
-      <div class="cd-t"><div class="cd-n"><span id="cd-h">00</span></div><small>Hours</small></div>
-      <div class="cd-t"><div class="cd-n"><span id="cd-m">00</span></div><small>Mins</small></div>
-      <div class="cd-t"><div class="cd-n"><span id="cd-s">00</span></div><small>Secs</small></div>
+      <div class="cd-t"><div class="cd-n"><span id="cd-d">00</span></div><small data-i18n="days">Days</small></div>
+      <div class="cd-t"><div class="cd-n"><span id="cd-h">00</span></div><small data-i18n="hours">Hours</small></div>
+      <div class="cd-t"><div class="cd-n"><span id="cd-m">00</span></div><small data-i18n="mins">Mins</small></div>
+      <div class="cd-t"><div class="cd-n"><span id="cd-s">00</span></div><small data-i18n="secs">Secs</small></div>
     </div>
     <p class="cd-msg" id="cd-msg" hidden></p>
   </section>
 
   <!-- ================= BLESSINGS & COUPLE ================= -->
   <section class="sec" id="couple">
-    <div class="kick rv up">With the blessings of</div>
-    <p class="parents rv up" style="--d:.15s;margin-top:12px">Sri J. Mothilal &amp; Smt. J. Sujatha</p>
-    <span class="amp-s rv zoom" style="--d:.3s">and</span>
-    <p class="parents rv up" style="--d:.45s">Sri L. Deva Singh &amp; Smt. L. Vimala</p>
+    <div class="kick rv up" data-i18n="bk">With the blessings of</div>
+    <p class="parents rv up" style="--d:.15s;margin-top:12px" data-i18n="p1">Sri J. Mothilal &amp; Smt. J. Sujatha</p>
+    <span class="amp-s rv zoom" style="--d:.3s" data-i18n="and">and</span>
+    <p class="parents rv up" style="--d:.45s" data-i18n="p2">Sri L. Deva Singh &amp; Smt. L. Vimala</p>
     <svg class="orn rv zoom" style="--d:.5s" aria-hidden="true"><use href="#lotus"/></svg>
     <p class="invite-text rv"><span class="words" data-words>We joyfully invite you and your family to grace the occasion and bless the couple as they begin their beautiful journey together.</span></p>
 
@@ -535,8 +622,8 @@ img{max-width:100%;display:block}
     <div class="couple">
       <div class="person rv left">
         <div class="medal"><svg viewBox="0 0 128 128" fill="currentColor" aria-hidden="true"><g id="dots"></g></svg>P</div>
-        <div class="full">J. Prem Nayak</div>
-        <div class="of">S/o Sri J. Mothilal &amp; Smt. J. Sujatha</div>
+        <div class="full" data-i18n="pf">J. Prem Nayak</div>
+        <div class="of" data-i18n="po">S/o Sri J. Mothilal &amp; Smt. J. Sujatha</div>
       </div>
 
       <svg class="rings rv" viewBox="40 -12 120 92" aria-hidden="true">
@@ -553,31 +640,31 @@ img{max-width:100%;display:block}
 
       <div class="person g rv right">
         <div class="medal"><svg viewBox="0 0 128 128" fill="currentColor" aria-hidden="true"><use href="#dots"/></svg>G</div>
-        <div class="full">L. Geethika</div>
-        <div class="of">D/o Sri L. Deva Singh &amp; Smt. L. Vimala</div>
+        <div class="full" data-i18n="gf">L. Geethika</div>
+        <div class="of" data-i18n="go">D/o Sri L. Deva Singh &amp; Smt. L. Vimala</div>
       </div>
     </div>
   </section>
 
   <!-- ================= EVENT DETAILS ================= -->
   <section class="sec" id="details" style="padding-top:30px">
-    <div class="kick rv up">Join us</div>
-    <h2 class="sec-title rv up" style="--d:.1s">Save the Date</h2>
+    <div class="kick rv up" data-i18n="ek">Join us</div>
+    <h2 class="sec-title rv up" style="--d:.1s" data-i18n="et">Save the Date</h2>
 
     <div class="event rv up" style="--d:.2s">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <div class="info">
         <div class="row rv left" style="--d:.35s">
           <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
-          <div><div class="k">Date</div><div class="v">Sunday, 22 November 2026</div></div>
+          <div><div class="k" data-i18n="kd">Date</div><div class="v" data-i18n="vd">Sunday, 22 November 2026</div></div>
         </div>
         <div class="row rv left" style="--d:.5s">
           <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div><div class="k">Time</div><div class="v">10:30 AM onwards</div></div>
+          <div><div class="k" data-i18n="kt">Time</div><div class="v" data-i18n="vt">10:30 AM onwards</div></div>
         </div>
         <div class="row rv left" style="--d:.65s">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-          <div><div class="k">Venue</div><div class="v">Podduturi Jewels</div><div class="sub">4th Floor, above Reliance Trends<br>Opposite REC Petrol Bunk</div></div>
+          <div><div class="k" data-i18n="kv">Venue</div><div class="v" data-i18n="vv">Podduturi Jewels</div><div class="sub" data-i18n="sv">4th Floor, above Reliance Trends<br>Opposite REC Petrol Bunk</div></div>
         </div>
       </div>
 
@@ -612,26 +699,26 @@ img{max-width:100%;display:block}
           <g class="callout">
             <polyline points="176,63 190,63 198,34" fill="none" stroke="#8A6626" stroke-width="1.2"/>
             <circle cx="176" cy="63" r="2.4" fill="#8A6626"/>
-            <text x="198" y="20" font-family="Cinzel, serif" font-size="9.6" font-weight="700" fill="#6E1423">PODDUTURI JEWELS</text>
-            <text x="198" y="37" font-family="Cormorant Garamond, serif" font-size="15" font-style="italic" font-weight="700" fill="#3A2A22">4th Floor</text>
+            <text class="t-venue" data-i18n="svV" x="198" y="20" font-family="Cinzel, serif" font-size="9.6" font-weight="700" fill="#6E1423">PODDUTURI JEWELS</text>
+            <text class="t-floor" data-i18n="svF" x="198" y="37" font-family="Cormorant Garamond, serif" font-size="15" font-style="italic" font-weight="700" fill="#3A2A22">4th Floor</text>
           </g>
-          <text x="258" y="102" text-anchor="middle" font-family="Cinzel, serif" font-size="8" letter-spacing="1.6" fill="#8A6626">OPPOSITE</text>
-          <text x="258" y="120" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14.5" font-weight="700" fill="#3A2A22">REC Petrol Bunk</text>
+          <text class="t-opp" data-i18n="svO" x="258" y="102" text-anchor="middle" font-family="Cinzel, serif" font-size="8" letter-spacing="1.6" fill="#8A6626">OPPOSITE</text>
+          <text class="t-bunk" data-i18n="svB" x="258" y="120" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14.5" font-weight="700" fill="#3A2A22">REC Petrol Bunk</text>
           <rect x="208" y="128" width="100" height="10" rx="2" fill="#C9A25A" stroke="#8A6626"/>
           <rect x="220" y="138" width="5" height="62" fill="#BCA483"/><rect x="291" y="138" width="5" height="62" fill="#BCA483"/>
           <rect x="247" y="166" width="22" height="34" rx="3" fill="#8C2235"/>
           <rect x="251" y="171" width="14" height="8" rx="1" fill="#F1D894"/>
           <path d="M269 178q9 2 7 15" fill="none" stroke="#3A2A22" stroke-width="2"/>
         </svg>
-        <p class="find-cap">Look for Reliance Trends — we're on the 4th floor, opposite REC Petrol Bunk.</p>
+        <p class="find-cap" data-i18n="fc">Look for Reliance Trends — we're on the 4th floor, opposite REC Petrol Bunk.</p>
       </div>
 
       <div class="btns">
         <a class="btn solid" href="https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Get Directions
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="dir">Get Directions</span>
         </a>
         <button class="btn ghost" type="button" data-act="cal">
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add to Calendar
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg><span data-i18n="cal">Add to Calendar</span>
         </button>
       </div>
     </div>
@@ -639,12 +726,12 @@ img{max-width:100%;display:block}
 
   <!-- ================= SHOWER BLESSINGS ================= -->
   <section class="sec" id="bless">
-    <div class="kick rv up">A little tradition</div>
-    <h2 class="sec-title rv up" style="--d:.1s">Shower your blessings</h2>
-    <p class="rv up" style="--d:.2s;margin-top:8px;font-size:1.12rem">Tap the flower to shower akshintalu &amp; petals on Prem &amp; Geethika.</p>
+    <div class="kick rv up" data-i18n="blk">A little tradition</div>
+    <h2 class="sec-title rv up" style="--d:.1s" data-i18n="blt">Shower your blessings</h2>
+    <p class="rv up" style="--d:.2s;margin-top:8px;font-size:1.12rem" data-i18n="blp">Tap the flower to shower akshintalu &amp; petals on Prem &amp; Geethika.</p>
     <button class="bless-btn rv zoom" style="--d:.3s" type="button" id="blessBtn" aria-label="Shower blessings">
       <svg viewBox="-12 -12 24 24" aria-hidden="true" id="blessFlower"></svg>
-      Tap to bless
+      <span data-i18n="blb">Tap to bless</span>
     </button>
     <p class="bless-msg" id="blessMsg" aria-live="polite"></p>
     <p class="bless-count" id="blessCount"></p>
@@ -652,18 +739,18 @@ img{max-width:100%;display:block}
 
   <!-- ================= CONTACT (appears once filled in CONFIG) ================= -->
   <section class="sec" id="contact" hidden style="padding-top:20px">
-    <div class="kick rv up">For any help</div>
-    <h2 class="sec-title rv up" style="--d:.1s">Reach us</h2>
+    <div class="kick rv up" data-i18n="ck">For any help</div>
+    <h2 class="sec-title rv up" style="--d:.1s" data-i18n="ct">Reach us</h2>
     <div id="contactList"></div>
   </section>
 
   <!-- ================= SHARE ================= -->
   <section class="sec" style="padding-top:20px">
-    <h2 class="sec-title rv up">Share the joy</h2>
-    <p class="rv up" style="--d:.1s;margin-top:6px">Forward this invitation to family &amp; friends.</p>
+    <h2 class="sec-title rv up" data-i18n="sht">Share the joy</h2>
+    <p class="rv up" style="--d:.1s;margin-top:6px" data-i18n="shp">Forward this invitation to family &amp; friends.</p>
     <div class="btns rv up" style="--d:.2s;max-width:360px;margin-left:auto;margin-right:auto">
       <button class="btn green" type="button" data-act="share">
-        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Share Invitation
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="shb">Share Invitation</span>
       </button>
     </div>
   </section>
@@ -672,20 +759,20 @@ img{max-width:100%;display:block}
 <!-- ================= FOOTER ================= -->
 <footer class="foot">
   <div class="diyas" id="diyas"></div>
-  <div class="script rv up">We look forward to celebrating with you</div>
-  <p class="rv up" style="--d:.15s">With love &amp; warm regards,<br>from both families</p>
+  <div class="script rv up" data-i18n="ft">We look forward to celebrating with you</div>
+  <p class="rv up" style="--d:.15s" data-i18n="fp">With love &amp; warm regards,<br>from both families</p>
 </footer>
 
 <!-- ================= FLOATING DOCK ================= -->
 <nav class="dock" id="dock" aria-label="Quick actions">
   <a class="dock-i" href="https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Directions</a>
+    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="dDir">Directions</span></a>
   <button class="dock-i" type="button" data-act="cal">
-    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</button>
+    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="dCal">Calendar</span></button>
   <button class="dock-i hl" type="button" data-act="bless">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5C10 6 10.5 3 12 2c1.5 1 2 4 0 7.5zM12 14.5c2 3.5 1.5 6.5 0 7.5-1.5-1-2-4 0-7.5zM9.5 12C6 14 3 13.5 2 12c1-1.5 4-2 7.5 0zM14.5 12c3.5-2 6.5-1.5 7.5 0-1 1.5-4 2-7.5 0z"/></svg>Bless</button>
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5C10 6 10.5 3 12 2c1.5 1 2 4 0 7.5zM12 14.5c2 3.5 1.5 6.5 0 7.5-1.5-1-2-4 0-7.5zM9.5 12C6 14 3 13.5 2 12c1-1.5 4-2 7.5 0zM14.5 12c3.5-2 6.5-1.5 7.5 0-1 1.5-4 2-7.5 0z"/></svg><span data-i18n="dBl">Bless</span></button>
   <button class="dock-i" type="button" data-act="share">
-    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Share</button>
+    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="dSh">Share</span></button>
 </nav>
 
 <!-- ================= CALENDAR BOTTOM SHEET ================= -->
@@ -693,15 +780,15 @@ img{max-width:100%;display:block}
   <div class="sheet-bg" data-close></div>
   <div class="sheet" role="dialog" aria-label="Add to calendar">
     <div class="grab"></div>
-    <h3>Add to your calendar</h3>
-    <p>With a reminder 2 hours before the ceremony.</p>
+    <h3 data-i18n="shh">Add to your calendar</h3>
+    <p data-i18n="shr">With a reminder 2 hours before the ceremony.</p>
     <a class="btn solid" id="gcal" target="_blank" rel="noopener" data-close>
       <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Google Calendar
     </a>
     <a class="btn ghost" href="engagement.ics" data-close>
       <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>iPhone / Outlook
     </a>
-    <button class="cancel" type="button" data-close>Cancel</button>
+    <button class="cancel" type="button" data-close data-i18n="cancel">Cancel</button>
   </div>
 </div>
 
@@ -727,6 +814,76 @@ var CONFIG = {
   var TITLE = "Engagement of Prem & Geethika";
   var PLACE = "Podduturi Jewels, 4th Floor, above Reliance Trends, opposite REC Petrol Bunk";
   var NOTE  = "Engagement ceremony of J. Prem Nayak & L. Geethika.\nDirections: " + MAPS;
+  /* ---------------- Telugu text (English stays in the HTML) ---------------- */
+  var TE = {
+    "g1": "హృదయపూర్వక ఆహ్వానం",
+    "g2": "నిశ్చితార్థం",
+    "tap": "తెరవడానికి తాకండి",
+    "h1": "ఇరు కుటుంబాల ఆశీస్సులతో",
+    "h2": "నిశ్చితార్థ మహోత్సవం",
+    "n1": "ప్రేమ్",
+    "n2": "గీతిక",
+    "sun": "ఆదివారం",
+    "nov": "నవంబర్",
+    "yr": "2026 &nbsp;·&nbsp; ఉదయం 10:30",
+    "at": "వేదిక: పొద్దుటూరి జ్యువెల్స్",
+    "cue": "వివరాలకు పైకి స్వైప్ చేయండి",
+    "cdk": "శుభ ముహూర్తానికి",
+    "cdt": "ఇంకా కొద్ది సమయమే",
+    "days": "రోజులు",
+    "hours": "గంటలు",
+    "mins": "నిమిషాలు",
+    "secs": "సెకన్లు",
+    "bk": "పెద్దల ఆశీస్సులతో",
+    "p1": "శ్రీ జె. మోతీలాల్ &amp; శ్రీమతి జె. సుజాత",
+    "and": "మరియు",
+    "p2": "శ్రీ ఎల్. దేవా సింగ్ &amp; శ్రీమతి ఎల్. విమల",
+    "invite": "మీరు సకుటుంబ సమేతంగా విచ్చేసి, కాబోయే వధూవరులను ఆశీర్వదించవలసిందిగా సవినయంగా కోరుచున్నాము.",
+    "pf": "చి॥ జె. ప్రేమ్ నాయక్",
+    "po": "శ్రీ జె. మోతీలాల్ – శ్రీమతి జె. సుజాత దంపతుల కుమారుడు",
+    "gf": "చి॥ ల॥ సౌ॥ ఎల్. గీతిక",
+    "go": "శ్రీ ఎల్. దేవా సింగ్ – శ్రీమతి ఎల్. విమల దంపతుల కుమార్తె",
+    "ek": "విచ్చేయండి",
+    "et": "శుభ ముహూర్తం",
+    "kd": "తేదీ",
+    "vd": "ఆదివారం, 22 నవంబర్ 2026",
+    "kt": "సమయం",
+    "vt": "ఉదయం 10:30 గంటలకు",
+    "kv": "వేదిక",
+    "vv": "పొద్దుటూరి జ్యువెల్స్",
+    "sv": "4వ అంతస్తు, రిలయన్స్ ట్రెండ్స్ పైన<br>REC పెట్రోల్ బంక్ ఎదురుగా",
+    "svV": "పొద్దుటూరి జ్యువెల్స్",
+    "svF": "4వ అంతస్తు",
+    "svO": "ఎదురుగా",
+    "svB": "REC పెట్రోల్ బంక్",
+    "fc": "రిలయన్స్ ట్రెండ్స్ ఉన్న భవనంలో 4వ అంతస్తు — REC పెట్రోల్ బంక్ ఎదురుగా.",
+    "dir": "దారి చూపించు",
+    "cal": "క్యాలెండర్‌లో చేర్చండి",
+    "blk": "మన సంప్రదాయం",
+    "blt": "అక్షింతలు వేయండి",
+    "blp": "పువ్వును తాకి ప్రేమ్ &amp; గీతికలపై అక్షింతలు, పూలు చల్లండి.",
+    "blb": "ఆశీర్వదించండి",
+    "ck": "ఏదైనా సహాయం కోసం",
+    "ct": "సంప్రదించండి",
+    "call": "కాల్ చేయండి",
+    "wa": "వాట్సాప్",
+    "sht": "ఆనందాన్ని పంచుకోండి",
+    "shp": "ఈ ఆహ్వానాన్ని బంధుమిత్రులకు పంపండి.",
+    "shb": "ఆహ్వానం పంపండి",
+    "ft": "మీ రాక కోసం ఎదురుచూస్తున్నాము",
+    "fp": "ప్రేమతో,<br>ఇరు కుటుంబాల తరఫున",
+    "dDir": "దారి",
+    "dCal": "క్యాలెండర్",
+    "dBl": "అక్షింతలు",
+    "dSh": "పంపండి",
+    "shh": "మీ క్యాలెండర్‌లో చేర్చండి",
+    "shr": "వేడుకకు 2 గంటల ముందు గుర్తు చేస్తుంది.",
+    "cancel": "మూసివేయి"
+    };
+  var DYN = { en: {"cdToday": "The celebrations are happening today!", "cdAfter": "Thank you for blessing Prem & Geethika", "msgs": ["Your blessings have been showered 🌸", "More blessings for the couple ✨", "Prem & Geethika thank you 🙏", "So much love! 💛", "Blessings received with joy 🌼"], "one": " blessing sent", "many": " blessings sent", "shareText": "You're warmly invited to the engagement of Prem & Geethika 💍\nSunday, 22 November 2026 · 10:30 AM\nPodduturi Jewels", "shareTitle": "Prem & Geethika · Engagement", "calTitle": "Engagement of Prem & Geethika", "calNote": "Engagement ceremony of J. Prem Nayak & L. Geethika.\nDirections: https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9", "docTitle": "Prem & Geethika · Engagement Ceremony"},
+    te: {"cdToday": "ఈరోజే శుభ వేడుక!", "cdAfter": "ప్రేమ్ & గీతికలను ఆశీర్వదించినందుకు ధన్యవాదాలు", "msgs": ["మీ ఆశీస్సులు అందాయి 🌸", "జంటకు మరిన్ని ఆశీస్సులు ✨", "ప్రేమ్ & గీతిక తరఫున ధన్యవాదాలు 🙏", "మీ ప్రేమకు కృతజ్ఞతలు 💛", "ఆనందంగా స్వీకరించాం 🌼"], "one": " ఆశీర్వాదం పంపారు", "many": " ఆశీర్వాదాలు పంపారు", "shareText": "ప్రేమ్ & గీతికల నిశ్చితార్థానికి మీకు సాదర ఆహ్వానం 💍\nఆదివారం, 22 నవంబర్ 2026 · ఉదయం 10:30\nపొద్దుటూరి జ్యువెల్స్", "shareTitle": "ప్రేమ్ & గీతికల నిశ్చితార్థం", "calTitle": "ప్రేమ్ & గీతికల నిశ్చితార్థం", "calNote": "జె. ప్రేమ్ నాయక్ & ఎల్. గీతికల నిశ్చితార్థ మహోత్సవం.\nదారి: https://maps.app.goo.gl/pjpJUZRKrHoaAT9P9", "docTitle": "ప్రేమ్ & గీతికల నిశ్చితార్థం"} };
+  var lang = window.__LANG === "te" ? "te" : "en";
+  function T(k) { return DYN[lang][k] != null ? DYN[lang][k] : DYN.en[k]; }
 
   var $ = function (s) { return document.querySelector(s); };
   var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
@@ -735,6 +892,7 @@ var CONFIG = {
   var lowEnd = (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
   var SITE = /^https?:$/.test(location.protocol) ? location.origin + location.pathname : CONFIG.siteUrl;
   var io = null;
+  var TE_URL = SITE.replace(/index\.html$/, "") + "te";
   function buzz(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
   /* ---------------- Sound (synthesised temple bell — no audio file needed) ---------------- */
@@ -927,13 +1085,14 @@ var CONFIG = {
   $("#blessFlower").innerHTML = marigold(50, "#B4320F", "#E0531B", "#7A1A08").replace(/^<svg[^>]*>|<\/svg>$/g, "");
 
   /* ---------------- Word-by-word text ---------------- */
-  $$("[data-words]").forEach(function (el) {
-    var words = el.textContent.trim().split(/\s+/); el.textContent = "";
+  function splitWords(el, text) {
+    var words = String(text).trim().split(/\s+/); el.textContent = "";
     words.forEach(function (w, i) {
       var s = document.createElement("span"); s.className = "w"; s.style.setProperty("--i", i); s.textContent = w;
       el.appendChild(s); el.appendChild(document.createTextNode(" "));
     });
-  });
+  }
+  $$("[data-words]").forEach(function (el) { el.setAttribute("data-en-text", el.textContent.trim()); splitWords(el, el.textContent); });
 
   /* ---------------- Scroll reveals ---------------- */
   if ("IntersectionObserver" in window && !reduce) {
@@ -954,7 +1113,7 @@ var CONFIG = {
     var now = Date.now();
     if (now >= START.getTime()) {
       $("#cd").hidden = true; var m = $("#cd-msg"); m.hidden = false;
-      m.textContent = now < END.getTime() ? "The celebrations are happening today!" : "Thank you for blessing Prem & Geethika";
+      m.textContent = T(now < END.getTime() ? "cdToday" : "cdAfter");
       return;
     }
     var t = Math.floor((START.getTime() - now) / 1000);
@@ -966,8 +1125,11 @@ var CONFIG = {
 
   /* ---------------- Calendar bottom sheet ---------------- */
   function fmt(d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
-  $("#gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(TITLE) +
-    "&dates=" + fmt(START) + "/" + fmt(END) + "&details=" + encodeURIComponent(NOTE) + "&location=" + encodeURIComponent(PLACE);
+  function updateGcal() {
+    $("#gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(T("calTitle")) +
+      "&dates=" + fmt(START) + "/" + fmt(END) + "&details=" + encodeURIComponent(T("calNote")) + "&location=" + encodeURIComponent(PLACE);
+  }
+  updateGcal();
   var sheet = $("#sheet"), sheetBox = sheet.querySelector(".sheet");
   function openSheet() {
     sheet.hidden = false; buzz(8);
@@ -990,17 +1152,17 @@ var CONFIG = {
 
   /* ---------------- Share ---------------- */
   function share() {
-    var text = "You're warmly invited to the engagement of Prem & Geethika 💍\nSunday, 22 November 2026 · 10:30 AM\nPodduturi Jewels";
+    var text = T("shareText"), url = lang === "te" ? TE_URL : SITE;
     if (navigator.share) {
-      navigator.share({ title: "Prem & Geethika · Engagement", text: text, url: SITE }).catch(function () {});
+      navigator.share({ title: T("shareTitle"), text: text, url: url }).catch(function () {});
     } else {
-      window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + SITE), "_blank");
+      window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank");
     }
   }
 
   /* ---------------- Shower blessings ---------------- */
   var blessN = 0;
-  var MSGS = ["Your blessings have been showered 🌸", "More blessings for the couple ✨", "Prem & Geethika thank you 🙏", "So much love! 💛", "Blessings received with joy 🌼"];
+  function countText() { return blessN + (blessN === 1 ? T("one") : T("many")); }
   function bless(x, y) {
     blessN++;
     var nR = lowEnd ? 30 : 55, i;
@@ -1010,9 +1172,9 @@ var CONFIG = {
     for (i = 0; i < 16; i++) spark(x, y, 5);
     kick();
     bell(1180, 0, .1, 1.4); bell(1570, .12, .07, 1.2); buzz(14);
-    var m = $("#blessMsg"); m.textContent = MSGS[(blessN - 1) % MSGS.length];
+    var m = $("#blessMsg"); m.textContent = T("msgs")[(blessN - 1) % T("msgs").length];
     m.classList.remove("pop"); void m.offsetWidth; m.classList.add("pop");
-    $("#blessCount").textContent = blessN === 1 ? "1 blessing sent" : blessN + " blessings sent";
+    $("#blessCount").textContent = countText();
     var pl = document.createElement("div"); pl.className = "plus"; pl.textContent = "+1";
     pl.style.left = x + "px"; pl.style.top = y + "px"; document.body.appendChild(pl);
     setTimeout(function () { if (pl.parentNode) pl.parentNode.removeChild(pl); }, 1150);
@@ -1047,7 +1209,7 @@ var CONFIG = {
   });
 
   /* ---------------- Dock, progress bar, parallax & tilt ---------------- */
-  var dock = $("#dock"), hero = $("#hero"), prog = $("#progress"), mw = $("#mandalaWrap"), cue = $("#cue");
+  var dock = $("#dock"), hero = $("#hero"), prog = $("#progress"), mw = $("#mandalaWrap"), cue = $("#cue"), langBox = $("#lang"), lastY = 0;
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (es) {
       var en = es[0]; dock.classList.toggle("show", opened && (!en.isIntersecting || en.intersectionRatio < .35));
@@ -1059,6 +1221,8 @@ var CONFIG = {
     var y = window.pageYOffset || 0, max = document.documentElement.scrollHeight - innerHeight;
     prog.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
     if (cue && y > 30) { cue.classList.add("gone"); cue = null; }
+    if (y > lastY + 6 && y > 180) langBox.classList.add("hide"); else if (y < lastY - 6 || y < 180) langBox.classList.remove("hide");
+    lastY = y;
     if (!reduce && y < innerHeight * 1.3) mw.style.transform = "translate3d(" + (gx * 16).toFixed(1) + "px," + (y * .35 + gy * 12).toFixed(1) + "px,0)";
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }
@@ -1080,14 +1244,44 @@ var CONFIG = {
       var card = document.createElement("div");
       card.className = "contact-card rv up"; card.style.setProperty("--d", (.15 + i * .15) + "s");
       card.innerHTML = '<div class="name"></div><div class="num"></div><div class="btns">' +
-        '<a class="btn solid" href="tel:+' + wa + '"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>' +
-        '<a class="btn green" href="https://wa.me/' + wa + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>WhatsApp</a></div>';
+        '<a class="btn solid" href="tel:+' + wa + '"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span data-i18n="call">Call</span></a>' +
+        '<a class="btn green" href="https://wa.me/' + wa + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg><span data-i18n="wa">WhatsApp</span></a></div>';
       card.querySelector(".name").textContent = c[0]; card.querySelector(".num").textContent = c[1];
       list.appendChild(card);
       if (io) io.observe(card); else card.classList.add("in");
     });
     $("#contact").hidden = false;
   }
+
+  /* ---------------- English / Telugu switch ---------------- */
+  function applyLang(l) {
+    lang = l === "te" ? "te" : "en";
+    root.lang = lang;
+    root.classList.toggle("te", lang === "te");
+    $$("[data-i18n]").forEach(function (el) {
+      if (!el.hasAttribute("data-en")) el.setAttribute("data-en", el.innerHTML);
+      var k = el.getAttribute("data-i18n");
+      el.innerHTML = lang === "te" && TE[k] != null ? TE[k] : el.getAttribute("data-en");
+    });
+    $$("[data-words]").forEach(function (el) { splitWords(el, lang === "te" ? TE.invite : el.getAttribute("data-en-text")); });
+    $$(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
+    document.title = T("docTitle");
+    updateGcal();
+    var cm = $("#cd-msg"); if (!cm.hidden) cm.textContent = T(Date.now() < END.getTime() ? "cdToday" : "cdAfter");
+    if (blessN) { $("#blessMsg").textContent = T("msgs")[(blessN - 1) % T("msgs").length]; $("#blessCount").textContent = countText(); }
+    root.classList.remove("te-pending");
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+  $$(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.getAttribute("data-lang"); if (l === lang) return;
+      buzz(8);
+      if (reduce) { applyLang(l); return; }
+      root.classList.add("lang-fade");
+      setTimeout(function () { applyLang(l); root.classList.remove("lang-fade"); }, 230);
+    });
+  });
+  applyLang(lang);
 })();
 </script>
 </body>
